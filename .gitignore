@@ -115,4 +115,4 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
-/SE_project/apps/accounts/migrations/
+/SE_project/accounts/migrations/
