@@ -41,6 +41,18 @@ class FieldSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'name']
 
 
+class AdvisorPublicSerializer(WritableNestedModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Advisor
+        fields = ('user', 'name', 'age', 'gender', 'country', 'city',
+                  'phone_number', 'education', 'record')
+        read_only_fields = ('user', 'name', 'age', 'gender', 'country', 'city',
+                  'phone_number', 'education', 'record')
+        depth = 1
+
+
 class AdvisorEditSerializer(WritableNestedModelSerializer):
     user = UserSerializer(read_only=True)
 

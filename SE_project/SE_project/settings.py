@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'apps.accounts',
-    'apps.consultation'
+    'apps.consultation',
     # 'rest_framework.authtoken',
     # 'corsheaders',
-    # 'django_filters',
+    'django_filters',
 ]
 
 
