@@ -28,7 +28,7 @@ class StudentUpdateView(UpdateAPIView):
 
 class ProfileDetailView(RetrieveAPIView):
     permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
-    authentication_classes = [SessionAuthentication, TokenAuthentication, BasicAuthentication]
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get_serializer_class(self):
         if self.request.user.is_advisor:
