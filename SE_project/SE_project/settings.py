@@ -40,19 +40,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'SE_project.apps.accounts',
+    'apps.accounts',
     'rest_framework.authtoken',
+    # 'corsheaders',
     # 'django_filters',
 ]
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -63,17 +64,16 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
-CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:3000'
-]
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ORIGIN_WHITELIST = [
+#     'http://127.0.0.1:3000'
+# ]
+# CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'SE_project.urls'
 
@@ -156,8 +156,8 @@ LANGUAGES = [
 CSRF_TRUSTED_ORIGINS = ['localhost:3000']
 
 JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'employment.utils.custom_jwt_response_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'SE_project.utils.custom_jwt_response_handler',
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=2*60*60),
 }
 
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True

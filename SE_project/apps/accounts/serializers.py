@@ -44,45 +44,43 @@ class AdvisorEditSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Advisor
-        fields = ('user', 'first_name', 'last_name', 'age', 'gender', 'country', 'city', 'address',
-                  'phone_number', 'photo', 'education', 'record')
+        fields = ('user', 'name', 'age', 'gender', 'country', 'city',
+                  'phone_number', 'education', 'record')
         depth = 1
 
 
 class AdvisorSerializer(WritableNestedModelSerializer):
     user = UserSerializer()
 
-    # def create(self, validated_data):
-    #     user = validated_data.pop('user')
-    #     password = user['password']
-    #     user = CustomUser.objects.create(**user)
-    #     if password is not None:
-    #         user.set_password(password)
-    #     validated_data['user'] = user
-    #     advisor = Advisor.objects.create(**validated_data)
-    #     field = validated_data.pop('field')
-    #     field, created = Field.objects.get_or_create(name=field['name'])
-    #     validated_data['field'] = field
-    #     advisor.field = field
-    #     user.is_advisor = True
-    #     user.save()
-    #     advisor.user = user
-    #     advisor.user.set_password(password)
-    #     advisor.save()
-    #     return advisor
+    def create(self, validated_data):
+        user = validated_data.pop('user')
+        password = user['password']
+        user = CustomUser.objects.create(**user)
+        if password is not None:
+            user.set_password(password)
+        validated_data['user'] = user
+        advisor = Advisor.objects.create(**validated_data)
+        field = validated_data.pop('field')
+        field, created = Field.objects.get_or_create(name=field['name'])
+        validated_data['field'] = field
+        advisor.field = field
+        user.is_advisor = True
+        user.save()
+        advisor.user = user
+        advisor.user.set_password(password)
+        advisor.save()
+        return advisor
 
 
     class Meta:
-        class Meta:
-            model = Advisor
-            fields = ('user', 'first_name', 'last_name', 'age', 'gender', 'country', 'city', 'address',
-                      'phone_number', 'photo', 'education', 'record')
-            depth = 1
+        model = Advisor
+        fields = ('user', 'name', 'age', 'gender', 'country', 'city',
+                  'phone_number', 'education', 'record')
+        depth = 1
 
 
 class StudentSerializer(WritableNestedModelSerializer):
     user = UserSerializer(many=False)
-    fields_of_interest = FieldSerializer(many=True)
 
     # def create(self, validated_data):
     #     user = validated_data.pop('user')
@@ -107,40 +105,39 @@ class StudentSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = Student
-        fields = ('user', 'first_name', 'last_name', 'age', 'gender', 'country', 'city', 'address',
-                  'phone_number', 'photo', 'grade', 'school_name', 'last_grade_score', 'average_graded_score',
-                  'fields_of_interest')
+        fields = ('user', 'name', 'age', 'gender', 'country', 'city',
+                  'phone_number', 'grade')
         depth = 1
 
 
 class StudentEditSerializer(WritableNestedModelSerializer):
     user = UserSerializer(read_only=True)
-    fields = FieldSerializer(many= True)
+    fields_of_interest = FieldSerializer()
 
-    # def update(self, instance, validated_data):
-    #     fields_data = validated_data.pop('fields')
-    #     fields = []
-    #     for field in fields_data:
-    #         field, created = Field.objects.get_or_create(name=field['name'])
-    #         fields.append(field)
-    #     instance.fields.set(fields)
-    #     instance.cv = validated_data['cv']
-    #     instance.first_name = validated_data['first_name']
-    #     instance.last_name = validated_data['last_name']
-    #     instance.age = validated_data['age']
-    #     instance.gender = validated_data['gender']
-    #     instance.country = validated_data['country']
-    #     instance.city = validated_data['city']
-    #     instance.address = validated_data['address']
-    #     instance.phone_number = validated_data['phone_number']
-    #     instance.photo = validated_data['photo']
-    #     instance.save()
-    #     return instance
+    def update(self, instance, validated_data):
+        fields_data = validated_data.pop('fields_of_interest')
+        fields = []
+        for field in fields_data:
+            field, created = Field.objects.get_or_create(name=field['name'])
+            fields.append(field)
+        instance.fields.set(fields)
+        instance.cv = validated_data['cv']
+        instance.first_name = validated_data['first_name']
+        instance.last_name = validated_data['last_name']
+        instance.age = validated_data['age']
+        instance.gender = validated_data['gender']
+        instance.country = validated_data['country']
+        instance.city = validated_data['city']
+        instance.address = validated_data['address']
+        instance.phone_number = validated_data['phone_number']
+        instance.photo = validated_data['photo']
+        instance.save()
+        return instance
 
     class Meta:
         model = Student
-        fields = ('user', 'first_name', 'last_name', 'age', 'gender', 'country', 'city', 'address',
-                  'phone_number', 'photo', 'grade', 'school_name', 'last_grade_score', 'average_graded_score',
+        fields = ('user', 'name', 'age', 'gender', 'country', 'city',
+                  'phone_number', 'grade', 'school_name', 'last_grade_score', 'average_grade_score',
                   'fields_of_interest')
         depth = 1
 

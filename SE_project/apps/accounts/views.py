@@ -31,13 +31,13 @@ class ProfileDetailView(RetrieveAPIView):
     authentication_classes = [SessionAuthentication, TokenAuthentication, BasicAuthentication]
 
     def get_serializer_class(self):
-        if self.request.user.is_Advisor:
+        if self.request.user.is_advisor:
             return AdvisorSerializer
         else:
             return StudentSerializer
 
     def get_queryset(self):
-        if self.request.user.is_Advisor:
+        if self.request.user.is_advisor:
             return Advisor.objects.all()
         else:
             return Student.objects.all()
