@@ -4,10 +4,9 @@ from django.utils.translation import ugettext as _
 
 
 class Status(models.TextChoices):
-    DEFAULT = '0', _('Default')
-    SENT = '1', _('Pending')
-    ACCEPTED = '2', _('Accepted')
-    DECLINED = '3', _('Declined')
+    DEFAULT = '0', _('Pending')
+    SENT = '1', _('Accepted')
+    ACCEPTED = '2', _('Declined')
 
 
 class ConsultationRequest(models.Model):

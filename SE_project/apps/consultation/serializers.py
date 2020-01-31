@@ -1,3 +1,4 @@
+from django.db.transaction import atomic
 from rest_framework import serializers
 
 from .models import ConsultationRequest
@@ -20,3 +21,9 @@ class ConsultationRequestResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConsultationRequest
         fields = ('accepted', 'rejection_reason')
+
+    @atomic
+    def update(self, instance, validated_data):
+        accepted = validated_data.get('accepted', False)
+        validated_data['status'] = '1' if accepted else '2'
+        return super().update(instance, validated_data)
