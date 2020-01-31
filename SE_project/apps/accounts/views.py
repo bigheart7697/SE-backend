@@ -1,10 +1,13 @@
 from rest_framework import permissions
-from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 from rest_framework.generics import *
 from rest_framework.permissions import IsAuthenticated
-from .models import Advisor, Student
+from rest_framework.views import APIView
+
+from .models import Advisor, Student, Field
 from .permissions import IsOwnerProfileOrReadOnly
-from .serializers import AdvisorEditSerializer, StudentSerializer, StudentEditSerializer, AdvisorSerializer
+from .serializers import AdvisorEditSerializer, StudentSerializer, StudentEditSerializer, AdvisorSerializer, \
+    FieldSerializer
+
 
 class AdvisorCreateView(CreateAPIView):
     serializer_class = AdvisorSerializer
@@ -41,3 +44,8 @@ class ProfileDetailView(RetrieveAPIView):
             return Advisor.objects.all()
         else:
             return Student.objects.all()
+
+
+class AbilitiesViewSet(ListAPIView):
+    serializer_class = FieldSerializer
+    queryset = Field.objects.all()

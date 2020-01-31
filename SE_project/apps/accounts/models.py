@@ -64,7 +64,7 @@ class Student(models.Model):
                               validators=[MaxValueValidator(100)])
     city = models.CharField(_('city'), max_length=100, null=True, blank=True)
     country = models.CharField(_('country'), max_length=100, null=True, blank=True)
-    phone_number = PhoneNumberField(_('phone number'), unique=True, null=True, blank=True)
+    phone_number = PhoneNumberField(_('phone number'), null=True, blank=True)
     grade = models.CharField(_('grade'), max_length=200, choices=Grade.choices)
     school_name = models.CharField(_('school name'), max_length=200, null=True, blank=True)
     last_grade_score = models.FloatField(_('last grade score'), null=True, blank=True,

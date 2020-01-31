@@ -31,12 +31,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'username', 'email', 'password', 'is_advisor')
+        read_only_fields = ['id', 'is_advisor']
 
 
 class FieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = Field
-        fields = ['name']
+        fields = ['id', 'name']
+        read_only_fields = ['id', 'name']
 
 
 class AdvisorEditSerializer(WritableNestedModelSerializer):
