@@ -62,10 +62,6 @@ class AdvisorSerializer(WritableNestedModelSerializer):
             user.set_password(password)
         validated_data['user'] = user
         advisor = Advisor.objects.create(**validated_data)
-        field = validated_data.pop('field')
-        field, created = Field.objects.get_or_create(name=field['name'])
-        validated_data['field'] = field
-        advisor.field = field
         user.is_advisor = True
         user.save()
         advisor.user = user

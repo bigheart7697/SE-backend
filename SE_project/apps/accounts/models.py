@@ -42,13 +42,13 @@ class CustomUser(AbstractUser):
 class Advisor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True, unique=True)
     name = models.CharField(_('name'), max_length=200, null=True, blank=True)
-    gender = models.CharField(_('gender'), choices=Gender.choices, default=Gender.DEFAULT, max_length=200)
+    gender = models.CharField(_('gender'), choices=Gender.choices, default=Gender.DEFAULT, max_length=200, blank=True, null=True)
     age = models.IntegerField(_('age'), choices=age_choices(), default=18,
                               validators=[MaxValueValidator(100)])
     city = models.CharField(_('city'), max_length=100, null=True, blank=True)
     country = models.CharField(_('country'), max_length=100, null=True, blank=True)
-    phone_number = PhoneNumberField(_('phone number'), unique=True, null=True, blank=True)
-    education = models.CharField(_('education'), max_length=200, choices=Education.choices)
+    phone_number = PhoneNumberField(_('phone number'), null=True, blank=True)
+    education = models.CharField(_('education'), max_length=200, choices=Education.choices, blank=True, null=True)
     record = models.TextField(_('record'), null=True, blank=True)
 
 
@@ -59,13 +59,13 @@ class Field(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True, unique=True)
     name = models.CharField(_('name'), max_length=200, null=True, blank=True)
-    gender = models.CharField(_('gender'), choices=Gender.choices, default=Gender.DEFAULT, max_length=200)
+    gender = models.CharField(_('gender'), choices=Gender.choices, default=Gender.DEFAULT, max_length=200, blank=True, null=True)
     age = models.IntegerField(_('age'), choices=age_choices(), default=18,
                               validators=[MaxValueValidator(100)])
     city = models.CharField(_('city'), max_length=100, null=True, blank=True)
     country = models.CharField(_('country'), max_length=100, null=True, blank=True)
     phone_number = PhoneNumberField(_('phone number'), null=True, blank=True)
-    grade = models.CharField(_('grade'), max_length=200, choices=Grade.choices)
+    grade = models.CharField(_('grade'), max_length=200, choices=Grade.choices, blank=True, null=True)
     school_name = models.CharField(_('school name'), max_length=200, null=True, blank=True)
     last_grade_score = models.FloatField(_('last grade score'), null=True, blank=True,
                                          validators=[MaxValueValidator(20.0)])
