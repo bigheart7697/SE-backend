@@ -27,7 +27,7 @@ SECRET_KEY = 'rnx$t==$%ljyydvly&d#gufi+4b-ok6c+-#vwv$&2o@1n-euzt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

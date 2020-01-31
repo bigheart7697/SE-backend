@@ -112,27 +112,27 @@ class StudentSerializer(WritableNestedModelSerializer):
 
 class StudentEditSerializer(WritableNestedModelSerializer):
     user = UserSerializer(read_only=True)
-    fields_of_interest = FieldSerializer()
+    # fields_of_interest = FieldSerializer()
 
-    def update(self, instance, validated_data):
-        fields_data = validated_data.pop('fields_of_interest')
-        fields = []
-        for field in fields_data:
-            field, created = Field.objects.get_or_create(name=field['name'])
-            fields.append(field)
-        instance.fields.set(fields)
-        instance.cv = validated_data['cv']
-        instance.first_name = validated_data['first_name']
-        instance.last_name = validated_data['last_name']
-        instance.age = validated_data['age']
-        instance.gender = validated_data['gender']
-        instance.country = validated_data['country']
-        instance.city = validated_data['city']
-        instance.address = validated_data['address']
-        instance.phone_number = validated_data['phone_number']
-        instance.photo = validated_data['photo']
-        instance.save()
-        return instance
+    # def update(self, instance, validated_data):
+    #     fields_data = validated_data.pop('fields_of_interest')
+    #     fields = []
+    #     for field in fields_data:
+    #         field, created = Field.objects.get_or_create(name=field['name'])
+    #         fields.append(field)
+    #     instance.fields.set(fields)
+    #     instance.cv = validated_data['cv']
+    #     instance.first_name = validated_data['first_name']
+    #     instance.last_name = validated_data['last_name']
+    #     instance.age = validated_data['age']
+    #     instance.gender = validated_data['gender']
+    #     instance.country = validated_data['country']
+    #     instance.city = validated_data['city']
+    #     instance.address = validated_data['address']
+    #     instance.phone_number = validated_data['phone_number']
+    #     instance.photo = validated_data['photo']
+    #     instance.save()
+    #     return instance
 
     class Meta:
         model = Student

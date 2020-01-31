@@ -5,7 +5,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 from .views import ProfileDetailView, AdvisorCreateView, StudentCreateView, StudentUpdateView, AdvisorUpdateView
 
 urlpatterns = [
-    url(r'', obtain_jwt_token, name='token-auth'),
+    url(r'^login/', obtain_jwt_token, name='token-auth'),
     url(r'^advisor-register/', AdvisorCreateView.as_view(), name="advisor register"),
     url(r'^student-register/', StudentCreateView.as_view(), name="student register"),
     url(r'^student-edit-profile/(?P<pk>\d+)/', StudentUpdateView.as_view(), name="student edit profile"),
