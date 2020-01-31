@@ -44,7 +44,7 @@ class Advisor(models.Model):
     name = models.CharField(_('name'), max_length=200, null=True, blank=True)
     gender = models.CharField(_('gender'), choices=Gender.choices, default=Gender.DEFAULT, max_length=200, blank=True, null=True)
     age = models.IntegerField(_('age'), choices=age_choices(), default=18,
-                              validators=[MaxValueValidator(100)], blank=True, null=True)
+                              validators=[MaxValueValidator(100)])
     city = models.CharField(_('city'), max_length=100, null=True, blank=True)
     country = models.CharField(_('country'), max_length=100, null=True, blank=True)
     phone_number = PhoneNumberField(_('phone number'), null=True, blank=True)
@@ -61,7 +61,7 @@ class Student(models.Model):
     name = models.CharField(_('name'), max_length=200, null=True, blank=True)
     gender = models.CharField(_('gender'), choices=Gender.choices, default=Gender.DEFAULT, max_length=200, blank=True, null=True)
     age = models.IntegerField(_('age'), choices=age_choices(), default=18,
-                              validators=[MaxValueValidator(100)], blank=True, null=True)
+                              validators=[MaxValueValidator(100)])
     city = models.CharField(_('city'), max_length=100, null=True, blank=True)
     country = models.CharField(_('country'), max_length=100, null=True, blank=True)
     phone_number = PhoneNumberField(_('phone number'), null=True, blank=True)

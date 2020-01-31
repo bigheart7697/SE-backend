@@ -54,24 +54,20 @@ class AdvisorEditSerializer(WritableNestedModelSerializer):
 class AdvisorSerializer(WritableNestedModelSerializer):
     user = UserSerializer()
 
-    # def create(self, validated_data):
-    #     user = validated_data.pop('user')
-    #     password = user['password']
-    #     user = CustomUser.objects.create(**user)
-    #     if password is not None:
-    #         user.set_password(password)
-    #     validated_data['user'] = user
-    #     advisor = Advisor.objects.create(**validated_data)
-    #     field = validated_data.pop('field')
-    #     field, created = Field.objects.get_or_create(name=field['name'])
-    #     validated_data['field'] = field
-    #     advisor.field = field
-    #     user.is_advisor = True
-    #     user.save()
-    #     advisor.user = user
-    #     advisor.user.set_password(password)
-    #     advisor.save()
-    #     return advisor
+    def create(self, validated_data):
+        user = validated_data.pop('user')
+        password = user['password']
+        user = CustomUser.objects.create(**user)
+        if password is not None:
+            user.set_password(password)
+        validated_data['user'] = user
+        advisor = Advisor.objects.create(**validated_data)
+        user.is_advisor = True
+        user.save()
+        advisor.user = user
+        advisor.user.set_password(password)
+        advisor.save()
+        return advisor
 
 
     class Meta:
