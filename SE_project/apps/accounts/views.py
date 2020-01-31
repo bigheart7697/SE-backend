@@ -18,6 +18,9 @@ class AdvisorUpdateView(UpdateAPIView):
     serializer_class = AdvisorEditSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerProfileOrReadOnly]
 
+    def get_object(self):
+        return self.request.user.advisor
+
 
 class StudentCreateView(CreateAPIView):
     serializer_class = StudentSerializer
@@ -26,7 +29,10 @@ class StudentCreateView(CreateAPIView):
 class StudentUpdateView(UpdateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentEditSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwnerProfileOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerProfileOrReadOnly]
+
+    def get_object(self):
+        return self.request.user.student
 
 
 class ProfileDetailView(RetrieveAPIView):
@@ -39,11 +45,17 @@ class ProfileDetailView(RetrieveAPIView):
         else:
             return StudentSerializer
 
-    def get_queryset(self):
+    def get_object(self):
         if self.request.user.is_advisor:
-            return Advisor.objects.all()
+            return self.request.user.advisor
         else:
-            return Student.objects.all()
+            return self.request.user.student
+
+    # def get_queryset(self):
+    #     if self.request.user.is_advisor:
+    #         return Advisor.objects.all()
+    #     else:
+    #         return Student.objects.all()
 
 
 class AbilitiesViewSet(ListAPIView):
