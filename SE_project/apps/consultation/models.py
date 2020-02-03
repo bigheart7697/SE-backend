@@ -15,3 +15,6 @@ class ConsultationRequest(models.Model):
     message = models.TextField(blank=True, null=True)
     rejection_reason = models.TextField(null=True, blank=True)
     status = models.CharField(_('status'), choices=Status.choices, default=Status.DEFAULT, max_length=50)
+
+    class Meta:
+        unique_together = ('student', 'adviser')

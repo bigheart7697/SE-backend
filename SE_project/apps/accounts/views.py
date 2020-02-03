@@ -73,7 +73,7 @@ class AdvisorsListView(ListCreateAPIView):
 
         name = self.request.query_params.get('name')
         if name is not None:
-            queryset = queryset.filter(name__icontain=name)
+            queryset = queryset.filter(name__icontains=name)
 
         min_age = self.request.query_params.get('min_age')
         if min_age is not None:
