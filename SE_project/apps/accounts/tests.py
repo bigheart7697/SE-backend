@@ -34,8 +34,42 @@ class TestAccount(AbstractTest):
         adviser = CustomUser.objects.get(username='hodhod').advisor
         self.assertEqual(adviser.education, '4')
 
-    def test_adviser_search(self):
+    def test_adviser_search_name(self):
         data = {"name": "hod"}
         response = self.client.get(reverse('advisor list'), data=data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(response.content)
+        container = self.get_json_container(response)
+        self.assertEqual(1, len(container))
+
+    def test_adviser_search_age(self):
+        data = {"min_age": "25"}
+        response = self.client.get(reverse('advisor list'), data=data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        container = self.get_json_container(response)
+        self.assertEqual(1, len(container))
+
+        data = {"max_age": "22"}
+        response = self.client.get(reverse('advisor list'), data=data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        container = self.get_json_container(response)
+        self.assertEqual(0, len(container))
+
+    def test_adviser_search_city(self):
+        data = {"city": "Tehran"}
+        response = self.client.get(reverse('advisor list'), data=data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        container = self.get_json_container(response)
+        self.assertEqual(2, len(container))
+
+        data = {"name": "hod", "city": "Tehran"}
+        response = self.client.get(reverse('advisor list'), data=data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        container = self.get_json_container(response)
+        self.assertEqual(1, len(container))
+
+    def test_adviser_search_gender(self):
+        data = {"name": "hod", "gender": "1"}
+        response = self.client.get(reverse('advisor list'), data=data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        container = self.get_json_container(response)
+        self.assertEqual(0, len(container))
