@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  builder:
+    build: .
+
+  app:
+    build: .
+    command: gunicorn SE_project.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - .:/code
+    ports:
+      - "5000:5000"

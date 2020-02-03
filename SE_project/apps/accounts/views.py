@@ -1,6 +1,7 @@
-from rest_framework import permissions
+from rest_framework import permissions, filters
 from rest_framework.generics import *
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Advisor, Student, Field
 from .permissions import IsOwnerProfileOrReadOnly
@@ -37,6 +38,8 @@ class StudentUpdateView(UpdateAPIView):
 class ProfileDetailView(RetrieveAPIView):
     permission_classes = [IsOwnerProfileOrReadOnly, IsAuthenticated]
 
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+
     def get_serializer_class(self):
         if self.request.user.is_advisor:
             return AdvisorSerializer
@@ -49,6 +52,12 @@ class ProfileDetailView(RetrieveAPIView):
         else:
             return self.request.user.student
 
+    # def get_queryset(self):
+    #     if self.request.user.is_advisor:
+    #         return Advisor.objects.all()
+    #     else:
+    #         return Student.objects.all()
+
 
 class AbilitiesViewSet(ListAPIView):
     serializer_class = FieldSerializer
@@ -58,6 +67,7 @@ class AbilitiesViewSet(ListAPIView):
 class AdvisorsListView(ListCreateAPIView):
     serializer_class = AdvisorPublicSerializer
 
+    # permission_classes = [IsAuthenticated]
     def get_queryset(self):
         queryset = Advisor.objects.all()
 
