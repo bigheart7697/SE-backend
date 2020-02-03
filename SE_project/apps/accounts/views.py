@@ -73,42 +73,7 @@ class AdvisorsListView(ListCreateAPIView):
 
         name = self.request.query_params.get('name')
         if name is not None:
-            queryset = queryset.filter(name__icontain=name)
-
-        min_age = self.request.query_params.get('min_age')
-        if min_age is not None:
-            queryset = queryset.filter(age__gte=int(min_age))
-
-        max_age = self.request.query_params.get('max_age')
-        if max_age is not None:
-            queryset = queryset.filter(age__lte=int(max_age))
-
-        city = self.request.query_params.get('city')
-        if city is not None:
-            queryset = queryset.filter(city__icontains=city)
-
-        gender = self.request.query_params.get('gender')
-        if gender is not None:
-            if gender == "1" or gender == "2":
-                queryset = queryset.filter(gender=gender)
-
-        return queryset.distinct()
-
-
-class AdvisorSearchView(ListAPIView):
-    # queryset = Advisor.objects.all()
-    serializer_class = AdvisorSerializer
-    # permission_classes = [IsAuthenticated]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['name', 'city']
-    ordering_fields = ['name']
-
-    def get_queryset(self):
-        queryset = Advisor.objects.all()
-
-        name = self.request.query_params.get('name')
-        if name is not None:
-            queryset = queryset.filter(name__icontain=name)
+            queryset = queryset.filter(name__icontains=name)
 
         min_age = self.request.query_params.get('min_age')
         if min_age is not None:

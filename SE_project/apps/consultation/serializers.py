@@ -25,5 +25,5 @@ class ConsultationRequestResponseSerializer(serializers.ModelSerializer):
     @atomic
     def update(self, instance, validated_data):
         accepted = validated_data.get('accepted', False)
-        validated_data['status'] = '1' if accepted else '2'
+        validated_data['status'] = '2' if accepted else '1'
         return super().update(instance, validated_data)
