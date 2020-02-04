@@ -5,7 +5,7 @@ pipeline
     environment
     {
 	    PYTHONUNBUFFERED = 1
-	    PRODUCT_PATH = '/home/ubuntu/SE_project'
+	    PRODUCT_PATH = '/home/ubuntu/SE-backend'
     }
 
     stages
